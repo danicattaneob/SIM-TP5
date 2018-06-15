@@ -16,16 +16,19 @@ public class Llegada extends Evento {
 
     private static final double MEDIA = 5;
     private Cliente cliente;
-    private Gestor g;
+    private final Gestor g;
     private double proxLleg;
     private static double randomTipoCom;
     private static double randomTiempLleg;
+    private boolean atendido;
+    private Evento proxEvento;
 
     public Llegada(Gestor g, double tiempoAct) {
         this.g = g;
         tiempoEjec = randomProxLleg(tiempoAct);
         randomTipoCom = 0;
         randomTiempLleg = 0;
+        atendido= false;
     }
 
     public double randomProxLleg(double tiempoActual) {
@@ -51,14 +54,16 @@ public class Llegada extends Evento {
         cliente = new Cliente();
         if (g.getJefe().estaAtendiendo()) {
             g.getCola().agregar(cliente);
+            atendido = false;
         } else {
+            atendido = true;
             if (g.getJefe().estaEnCocina()) {
                 g.duplicarTiempoPed(tiempoEjec);
             }
             g.getJefe().atender();
             cliente.atender();
-            Evento e = GenerarTipoCompra(cliente, tiempoEjec, g);
-            g.agregarEvento(e);
+            proxEvento = GenerarTipoCompra(cliente, tiempoEjec, g);
+            g.agregarEvento(proxEvento);
         }
 
 //        Evento evProxLleg = new Llegada(g, tiempoEjec);
@@ -90,6 +95,13 @@ public class Llegada extends Evento {
         return randomTiempLleg;
     }
     
-    
+    public boolean fueAtendido(){
+        return atendido;
+    }
 
+    public Evento getProxEvento() {
+        return proxEvento;
+    }
+
+    
 }

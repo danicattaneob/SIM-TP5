@@ -18,6 +18,8 @@ public class FinEntrPed extends Evento {
     private final double min = 5;
     private final double max = 10;
     private final Cliente cliente;
+    private double rndTiempPrep;
+    private double tiempoPrep;
 
     public FinEntrPed(Gestor g, Cliente cliente, double tiempoFin) {
         this.g = g;
@@ -34,7 +36,9 @@ public class FinEntrPed extends Evento {
     }
 
     public double randomTiempoAt(double tiempoActual) {
-        return tiempoActual + Math.random() * (max - min) + min;
+        rndTiempPrep = Math.random();
+        tiempoPrep = rndTiempPrep * (max - min) + min;
+        return tiempoActual + tiempoPrep;
     }
     
     @Override
@@ -51,6 +55,14 @@ public class FinEntrPed extends Evento {
     @Override
     public String toString() {
         return "FinEntrPed " + tiempoEjec;
+    }
+
+    public double getRndTiempPrep() {
+        return rndTiempPrep;
+    }
+
+    public double getTiempoPrep() {
+        return tiempoPrep;
     }
     
     

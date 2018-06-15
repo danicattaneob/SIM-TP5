@@ -7,6 +7,7 @@ package gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -110,7 +111,8 @@ public class FXMLDocumentController implements Initializable {
     private void iniciarSim(ActionEvent event) {
         System.out.println("You clicked me!");
         Gestor g = new Gestor();
-        g.simular(getCantSim(), getDesde(), getHasta());
+        ObservableList<Columna> lista = g.simular(getCantSim(), getDesde(), getHasta());
+        tvw_simulacion.setItems(lista);
     }
     
     @Override
