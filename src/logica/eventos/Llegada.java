@@ -38,8 +38,10 @@ public class Llegada extends Evento {
 
     @Override
     public void ejecutar() {
-        cliente = new Cliente();
+        Evento evProxLleg = new Llegada(g, tiempoEjec);
+        g.agregarEvento(evProxLleg);
         
+        cliente = new Cliente();
         if(g.getJefe().estaAtendiendo()){
             g.getCola().agregar(cliente);
         } else {
@@ -52,8 +54,8 @@ public class Llegada extends Evento {
             g.agregarEvento(e);
         }
 
-        Evento evProxLleg = new Llegada(g, tiempoEjec);
-        g.agregarEvento(evProxLleg);
+//        Evento evProxLleg = new Llegada(g, tiempoEjec);
+//        g.agregarEvento(evProxLleg);
     }
 
     @Override

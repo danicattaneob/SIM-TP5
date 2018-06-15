@@ -50,7 +50,7 @@ public class FinEntrPed extends Evento {
 
     @Override
     public String toString() {
-        return "FinEntrPed" + tiempoEjec;
+        return "FinEntrPed " + tiempoEjec;
     }
     
     

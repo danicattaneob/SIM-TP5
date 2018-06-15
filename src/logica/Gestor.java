@@ -102,17 +102,34 @@ public class Gestor {
 
     //Le falta - divide solo su tiempo y no suma el tiempo actual
     public void duplicarTiempoPed(double tiempoAct) {
-        for (FinEntrPed e : colaEvDeFinPed) {
-            e = (FinEntrPed) e;
+        TreeSet<FinEntrPed> nuevaCola = new TreeSet();
+        for (int i = 0; i < colaEvDeFinPed.size(); i++) {
+            FinEntrPed e = colaEvDeFinPed.pollFirst();
             e.duplicarTiempo(tiempoAct);
+            nuevaCola.add(e);
         }
+        
+        colaEvDeFinPed = nuevaCola;
+        
+//        for (FinEntrPed e : colaEvDeFinPed) {
+//            e = (FinEntrPed) e;
+//            e.duplicarTiempo(tiempoAct);
+//        }
     }
 
     //idem al de arriba
     public void dividirTiempoPed(double tiempoAct) {
-        for (FinEntrPed e : colaEvDeFinPed) {
+        TreeSet<FinEntrPed> nuevaCola = new TreeSet();
+        for (int i = 0; i < colaEvDeFinPed.size(); i++) {
+            FinEntrPed e = colaEvDeFinPed.pollFirst();
             e.dividirTiempo(tiempoAct);
+            nuevaCola.add(e);
         }
+        colaEvDeFinPed = nuevaCola;
+        
+//        for (FinEntrPed e : colaEvDeFinPed) {
+//            e.dividirTiempo(tiempoAct);
+//        }
     }
     
     private boolean hayEventos(){
