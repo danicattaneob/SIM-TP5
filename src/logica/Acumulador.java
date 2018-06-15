@@ -45,10 +45,14 @@ public class Acumulador {
         
         if (g.getJefe().estaEnCocina()) {
             jefeEnMostrador = false;
+        }else{
+            jefeEnMostrador = true;
         }
         
         if (g.getAyudante().estaOcupado()) {
             ayudanteLibre = false;
+        } else {
+            ayudanteLibre = true;
         }
         
         tiempoAnt = tiempoAct;

@@ -29,6 +29,11 @@ public class Ayudante {
 
     public void liberar() {
         estado = EstadoAyudante.OCIO;
-
     }
+
+    public EstadoAyudante getEstado() {
+        return estado;
+    }
+    
+    
 }

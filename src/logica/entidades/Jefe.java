@@ -37,6 +37,12 @@ public class Jefe {
     public boolean estaEnCocina(){
         return estado.equals(EstadoJefe.EN_COCINA);
     }
+
+    public EstadoJefe getEstado() {
+        return estado;
+    }
+    
+    
 }
 
 

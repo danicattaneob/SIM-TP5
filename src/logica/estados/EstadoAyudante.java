@@ -22,4 +22,10 @@ public enum EstadoAyudante {
     public String getNombre() {
         return this.nombre;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
 }

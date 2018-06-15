@@ -24,6 +24,6 @@ public abstract class Evento implements Comparable<Evento> {
 
     @Override
     public int compareTo(Evento e) {
-        return (int) ((this.getTiempoEjec() - e.getTiempoEjec()) * 100000);
+        return (int) ((this.getTiempoEjec() - e.getTiempoEjec()) * 1000);
     }
 }

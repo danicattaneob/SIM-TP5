@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import logica.Gestor;
 
 /**
@@ -24,73 +25,73 @@ import logica.Gestor;
 public class FXMLDocumentController implements Initializable {
     
         @FXML
-    private TableView<?> tvw_simulacion;
+    private TableView<Columna> tvw_simulacion;
 
     @FXML
-    private TableColumn<?, ?> reloj;
+    private TableColumn<Columna, String> reloj;
 
     @FXML
-    private TableColumn<?, ?> evento;
+    private TableColumn<Columna, String> evento;
 
     @FXML
-    private TableColumn<?, ?> rndLleg;
+    private TableColumn<Columna, String> rndLleg;
 
     @FXML
-    private TableColumn<?, ?> tiemEnLleg;
+    private TableColumn<Columna, String> tiemEnLleg;
 
     @FXML
-    private TableColumn<?, ?> proxLleg;
+    private TableColumn<Columna, String> proxLleg;
 
     @FXML
-    private TableColumn<?, ?> rndTipC;
+    private TableColumn<Columna, String> rndTipC;
 
     @FXML
-    private TableColumn<?, ?> tipoCom;
+    private TableColumn<Columna, String> tipoCom;
 
     @FXML
-    private TableColumn<?, ?> rndFinAtG;
+    private TableColumn<Columna, String> rndFinAtG;
 
     @FXML
-    private TableColumn<?, ?> tiemAt;
+    private TableColumn<Columna, String> tiemAt;
 
     @FXML
-    private TableColumn<?, ?> finAt;
+    private TableColumn<Columna, String> finAt;
 
     @FXML
-    private TableColumn<?, ?> transmP;
+    private TableColumn<Columna, String> transmP;
 
     @FXML
-    private TableColumn<?, ?> finTansm;
+    private TableColumn<Columna, String> finTansm;
 
     @FXML
-    private TableColumn<?, ?> rndPrepC;
+    private TableColumn<Columna, String> rndPrepC;
 
     @FXML
-    private TableColumn<?, ?> tiempPrepC;
+    private TableColumn<Columna, String> tiempPrepC;
 
     @FXML
-    private TableColumn<?, ?> finPrepC;
+    private TableColumn<Columna, String> finPrepC;
 
     @FXML
-    private TableColumn<?, ?> estJefe;
+    private TableColumn<Columna, String> estJefe;
 
     @FXML
-    private TableColumn<?, ?> estCola;
+    private TableColumn<Columna, String> estCola;
 
     @FXML
-    private TableColumn<?, ?> acTiemMost;
+    private TableColumn<Columna, String> acTiemMost;
 
     @FXML
-    private TableColumn<?, ?> acTiemCoc;
+    private TableColumn<Columna, String> acTiemCoc;
 
     @FXML
-    private TableColumn<?, ?> estAy;
+    private TableColumn<Columna, String> estAy;
 
     @FXML
-    private TableColumn<?, ?> acTiemTrab;
+    private TableColumn<Columna, String> acTiemTrab;
 
     @FXML
-    private TableColumn<?, ?> acTiemLibre;
+    private TableColumn<Columna, String> acTiemLibre;
 
 
     @FXML
@@ -109,12 +110,49 @@ public class FXMLDocumentController implements Initializable {
     private void iniciarSim(ActionEvent event) {
         System.out.println("You clicked me!");
         Gestor g = new Gestor();
-        g.simular(Integer.parseInt(txt_cantSim.getText()));
+        g.simular(getCantSim(), getDesde(), getHasta());
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-    }    
+        
+    }
     
+    private void setearColumnas(){
+    reloj.setCellValueFactory( new PropertyValueFactory<>("reloj"));
+    evento.setCellValueFactory( new PropertyValueFactory<>("evento"));
+    rndLleg.setCellValueFactory( new PropertyValueFactory<>("rndLleg"));
+    tiemEnLleg.setCellValueFactory( new PropertyValueFactory<>("tiemEnLleg"));
+    proxLleg.setCellValueFactory( new PropertyValueFactory<>("proxLleg"));
+    rndTipC.setCellValueFactory( new PropertyValueFactory<>("rndTipC"));
+    tipoCom.setCellValueFactory( new PropertyValueFactory<>("tipoCom"));
+    rndFinAtG.setCellValueFactory( new PropertyValueFactory<>("rndFinAtG"));
+    tiemAt.setCellValueFactory( new PropertyValueFactory<>("tiemAt"));
+    finAt.setCellValueFactory( new PropertyValueFactory<>("finAt"));
+    transmP.setCellValueFactory( new PropertyValueFactory<>("transmP"));
+    finTansm.setCellValueFactory( new PropertyValueFactory<>("finTansm"));
+    rndPrepC.setCellValueFactory( new PropertyValueFactory<>("rndPrepC"));
+    tiempPrepC.setCellValueFactory( new PropertyValueFactory<>("tiempPrepC"));
+    finPrepC.setCellValueFactory( new PropertyValueFactory<>("finPrepC"));
+    estJefe.setCellValueFactory( new PropertyValueFactory<>("estJefe"));
+    estCola.setCellValueFactory( new PropertyValueFactory<>("estCola"));
+    acTiemMost.setCellValueFactory( new PropertyValueFactory<>("acTiemMost"));
+    acTiemCoc.setCellValueFactory( new PropertyValueFactory<>("acTiemCoc"));
+    estAy.setCellValueFactory( new PropertyValueFactory<>("estAy"));
+    acTiemTrab.setCellValueFactory( new PropertyValueFactory<>("acTiemTrab"));
+    acTiemLibre.setCellValueFactory( new PropertyValueFactory<>("acTiemLibre"));
+    }
+
+    public int getCantSim(){
+        return Integer.parseInt(txt_cantSim.getText());
+    }
+    
+    public int getDesde(){
+        return Integer.parseInt(txt_desde.getText());
+    }
+    
+    public int getHasta(){
+        return Integer.parseInt(txt_hasta.getText());
+    }
 }

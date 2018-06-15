@@ -20,6 +20,8 @@ public class FinAtGol extends Evento {
     private final double min = 0.5;
     private final double max = 2;
     private Cliente cliente;
+    private double rndFinAt;
+    private double tiempAt;
 
     public FinAtGol(Gestor g, Cliente c, double tiempoFin) {
         this.g = g;
@@ -45,7 +47,9 @@ public class FinAtGol extends Evento {
     }
 
     public double randomTiempoAt(double tiempoActual) {
-        return tiempoActual + Math.random() * (max - min) + min;
+        rndFinAt = Math.random();
+        tiempAt = rndFinAt * (max - min) + min;
+        return tiempoActual + tiempAt;
     }
 
     @Override
@@ -53,4 +57,13 @@ public class FinAtGol extends Evento {
         return "FinAtGol " + tiempoEjec;
     }
 
+    public double getRndFinAt() {
+        return rndFinAt;
+    }
+
+    public double getTiempAt() {
+        return tiempAt;
+    }
+
+    
 }

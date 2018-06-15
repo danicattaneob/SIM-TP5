@@ -17,19 +17,25 @@ public class Llegada extends Evento {
     private static final double MEDIA = 5;
     private Cliente cliente;
     private Gestor g;
+    private double proxLleg;
+    private static double randomTipoCom;
+    private static double randomTiempLleg;
 
     public Llegada(Gestor g, double tiempoAct) {
         this.g = g;
         tiempoEjec = randomProxLleg(tiempoAct);
+        randomTipoCom = 0;
+        randomTiempLleg = 0;
     }
 
     public double randomProxLleg(double tiempoActual) {
-        return tiempoActual + (-MEDIA) * Math.log(1 - Math.random());
+        randomTiempLleg = Math.random();
+        return tiempoActual + (-MEDIA) * Math.log(1 - randomTiempLleg);
     }
 
     public static Evento GenerarTipoCompra(Cliente c, double tiempoEjec, Gestor g) {
-        double ran = Math.random();
-        if (ran < 0.8) {
+        randomTipoCom = Math.random();
+        if (randomTipoCom < 0.8) {
             return new FinAtGol(g, c, tiempoEjec);
         } else {
             return new FinTrans(g, c, tiempoEjec);
@@ -40,9 +46,10 @@ public class Llegada extends Evento {
     public void ejecutar() {
         Evento evProxLleg = new Llegada(g, tiempoEjec);
         g.agregarEvento(evProxLleg);
-        
+        proxLleg = evProxLleg.getTiempoEjec();
+
         cliente = new Cliente();
-        if(g.getJefe().estaAtendiendo()){
+        if (g.getJefe().estaAtendiendo()) {
             g.getCola().agregar(cliente);
         } else {
             if (g.getJefe().estaEnCocina()) {
@@ -61,6 +68,26 @@ public class Llegada extends Evento {
     @Override
     public String toString() {
         return "Llegada " + tiempoEjec;
+    }
+
+    public double getProxLleg() {
+        return proxLleg;
+    }
+
+    public double getRandomTipoCom() {
+        return randomTipoCom;
+    }
+
+    public String getTipoComida() {
+        if (randomTipoCom < 0.8) {
+            return "Golos";
+        } else {
+            return "Com. rap";
+        }
+    }
+
+    public double getRandomTiempLleg() {
+        return randomTiempLleg;
     }
     
     

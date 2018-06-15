@@ -23,4 +23,11 @@ public enum EstadoJefe {
     public String getNombre() {
         return this.nombre;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
+    
 }

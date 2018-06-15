@@ -5,7 +5,10 @@
  */
 package logica;
 
+import gui.Columna;
 import java.util.TreeSet;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import logica.eventos.*;
 import logica.entidades.*;
 
@@ -23,11 +26,13 @@ public class Gestor {
     private Ayudante ayudante;
     private TreeSet<FinEntrPed> colaEvDeFinPed;
     private Acumulador acumulador;
+    private Columna columnaAnterior;
 
     public Gestor() {
     }
 
-    public void simular(int cantSim) {
+    public ObservableList<Columna> simular(int cantSim, int desde, int hasta) {
+        ObservableList<Columna> lista = FXCollections.observableArrayList();
         this.cantSim = cantSim;
         init();
 
@@ -36,14 +41,30 @@ public class Gestor {
             Evento e = proximoEvento();
             tiempo.setTime(e.getTiempoEjec());
             e.ejecutar();
-            System.out.print(e.toString());
-            System.out.println("\t\tCola: " + cola.genteEnCola());
             acumulador.acumular(e.getTiempoEjec(), this);
+
+            Columna col = armarColumna(e);
+            if (i > desde && i < hasta) {
+                lista.add(col);
+            }
+
             i++;
+            debug(e);
         }
+        return lista;
+    }
+
+    private void debug(Evento e) {
+        System.out.print(e.toString());
+        System.out.print("\t Cola: " + cola.genteEnCola());
+        System.out.print("\t Jefe: " + jefe.getEstado().toString());
+        //System.out.print("\t\t Ayudante: " + ayudante.getEstado().toString());
+        System.out.println("\t\t\t Ac tiempo Jefe en cocina: " + acumulador.getTiempoJefeCocina());
+        //System.out.println("\t Ac tiempo Ayudante tabajando: " + acumulador.getTiempoAyudanteTrabajando());
     }
 
     public void init() {
+        columnaAnterior = new Columna();
         acumulador = new Acumulador();
         tiempo = Tiempo.getInstance();
         tiempo.clear();
@@ -61,7 +82,7 @@ public class Gestor {
         }
         Evento e1 = colaEventos.first();
         Evento e2 = colaEvDeFinPed.first();
-        if (e1.compareTo(e2) > 0) {
+        if (e1.compareTo(e2) < 0) {
             return colaEventos.pollFirst();
         } else {
             return colaEvDeFinPed.pollFirst();
@@ -108,9 +129,9 @@ public class Gestor {
             e.duplicarTiempo(tiempoAct);
             nuevaCola.add(e);
         }
-        
+
         colaEvDeFinPed = nuevaCola;
-        
+
 //        for (FinEntrPed e : colaEvDeFinPed) {
 //            e = (FinEntrPed) e;
 //            e.duplicarTiempo(tiempoAct);
@@ -126,13 +147,63 @@ public class Gestor {
             nuevaCola.add(e);
         }
         colaEvDeFinPed = nuevaCola;
-        
+
 //        for (FinEntrPed e : colaEvDeFinPed) {
 //            e.dividirTiempo(tiempoAct);
 //        }
     }
-    
-    private boolean hayEventos(){
+
+    private boolean hayEventos() {
         return !(colaEventos.isEmpty() && colaEvDeFinPed.isEmpty());
+    }
+
+    public Columna armarColumna(Evento e) {
+        Columna nuevaCol = new Columna();
+        nuevaCol.setReloj(Double.toString(tiempo.getTime()));
+        nuevaCol.setEvento(e.toString());
+
+        //Puesta en cero
+        nuevaCol.setRndLleg("");
+        nuevaCol.setTiemEnLleg("");
+        nuevaCol.setRndTipC("");
+        nuevaCol.setTipoCom("");
+
+        //Valores acarreados
+        nuevaCol.setProxLleg(columnaAnterior.getProxLleg());
+        nuevaCol.setFinAt(columnaAnterior.getFinAt());
+        nuevaCol.setFinTansm(columnaAnterior.getFinTansm());
+        nuevaCol.setFinPrepC(columnaAnterior.getFinPrepC());
+
+        if (e instanceof Llegada) {
+            nuevaCol.setRndLleg(Double.toString(((Llegada) e).getRandomTiempLleg()));
+            nuevaCol.setTiemEnLleg(Double.toString(tiempo.getTime() - ((Llegada) e).getProxLleg()));
+            nuevaCol.setProxLleg(Double.toString(((Llegada) e).getProxLleg()));
+            nuevaCol.setRndTipC(Double.toString(((Llegada) e).getRandomTipoCom()));
+            nuevaCol.setTipoCom(((Llegada) e).getTipoComida());
+        }
+
+        if (e instanceof FinAtGol) {
+            nuevaCol.setRndFinAtG(Double.toString(((FinAtGol) e).getRndFinAt()));
+            nuevaCol.setTiemAt(Double.toString(((FinAtGol) e).getTiempAt()));
+            nuevaCol.setTiemAt(Double.toString(((FinAtGol) e).getTiempAt()));
+        }
+
+        if (e instanceof FinTrans) {
+
+        }
+
+        if (e instanceof FinEntrPed) {
+
+        }
+
+        nuevaCol.setEstJefe(jefe.getEstado().toString());
+        nuevaCol.setEstCola(Integer.toString(cola.genteEnCola()));
+        nuevaCol.setAcTiemMost(Double.toString(acumulador.getTiempoJefeMostrador()));
+        nuevaCol.setAcTiemCoc(Double.toString(acumulador.getTiempoJefeCocina()));
+        nuevaCol.setEstAy(ayudante.getEstado().toString());
+        nuevaCol.setAcTiemTrab(Double.toString(acumulador.getTiempoAyudanteTrabajando()));
+        nuevaCol.setAcTiemLibre(Double.toString(acumulador.getTiempoAyudanteLibre()));
+
+        return nuevaCol;
     }
 }
