@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FXMLDocumentController">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="1300.0">
+         <center>
+            <TableView fx:id="tvw_simulacion" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <columns>
+                  <TableColumn fx:id="reloj" maxWidth="2000.0" prefWidth="36.999969482421875" text="Reloj" />
+                  <TableColumn fx:id="evento" maxWidth="2500.0" prefWidth="44.0" text="Evento" />
+                  <TableColumn fx:id="rndLleg" maxWidth="1750.0" prefWidth="36.0" text="RND" />
+                  <TableColumn fx:id="tiemEnLleg" maxWidth="4500.0" prefWidth="74.0" text="T. entre lleg" />
+                  <TableColumn fx:id="proxLleg" maxWidth="3500.0" prefWidth="60.0" text="Prox lleg" />
+                  <TableColumn fx:id="rndTipC" maxWidth="1750.0" prefWidth="41.0" text="RND" />
+                  <TableColumn fx:id="tipoCom" maxWidth="4000.0" prefWidth="70.0" text="Tipo Comp" />
+                  <TableColumn fx:id="rndFinAtG" maxWidth="1750.0" prefWidth="51.0" text="RND" />
+                  <TableColumn fx:id="tiemAt" maxWidth="2000.0" prefWidth="55.0" text="T. at." />
+                  <TableColumn fx:id="finAt" maxWidth="2000.0" prefWidth="57.0" text="Fin at." />
+                  <TableColumn fx:id="transmP" maxWidth="2500.0" prefWidth="72.0" text="T. trans." />
+                  <TableColumn fx:id="finTansm" maxWidth="2750.0" prefWidth="76.0" text="Fin trans." />
+                  <TableColumn fx:id="rndPrepC" maxWidth="1750.0" prefWidth="35.0" text="RND" />
+                  <TableColumn fx:id="tiempPrepC" maxWidth="4000.0" prefWidth="93.0" text="T. prep. com." />
+                  <TableColumn fx:id="finPrepC" maxWidth="4500.0" prefWidth="92.0" text="Fin prep. com." />
+                  <TableColumn fx:id="estJefe" maxWidth="3500.0" prefWidth="73.0" text="Estado Jefe" />
+                  <TableColumn fx:id="estCola" maxWidth="1250.0" prefWidth="42.0" text="Cola" />
+                  <TableColumn fx:id="acTiemMost" maxWidth="3500.0" prefWidth="74.0" text="T. en mostr." />
+                  <TableColumn fx:id="acTiemCoc" maxWidth="3500.0" prefWidth="77.0" text="T. en cocina" />
+                  <TableColumn fx:id="estAy" maxWidth="4750.0" prefWidth="102.0" text="Estado ayudante" />
+                  <TableColumn fx:id="acTiemTrab" maxWidth="4000.0" prefWidth="90.0" text="T. trabajando" />
+                  <TableColumn fx:id="acTiemLibre" maxWidth="4000.0" prefWidth="55.0" text="T. ocioso" />
+               </columns>
+            </TableView>
+         </center>
+         <top>
+            <GridPane prefHeight="151.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="txt_hasta" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                  <TextField fx:id="txt_desde" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                  <Label text="Desde:" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <Label text="Hasta" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                  <TextField fx:id="txt_cantSim" text="100" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Label text="Cantidad de simulaciones:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+         </top>
+         <bottom>
+            <GridPane BorderPane.alignment="CENTER">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="btn_simular" mnemonicParsing="false" onAction="#iniciarSim" prefHeight="25.0" prefWidth="95.0" text="Simular" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>
