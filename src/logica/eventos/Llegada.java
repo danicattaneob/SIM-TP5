@@ -24,10 +24,10 @@ public class Llegada extends Evento {
     private Evento proxEvento;
 
     public Llegada(Gestor g, double tiempoAct) {
+        randomTiempLleg = 0;
         this.g = g;
         tiempoEjec = randomProxLleg(tiempoAct);
         randomTipoCom = 0;
-        randomTiempLleg = 0;
         atendido= false;
     }
 
@@ -38,7 +38,7 @@ public class Llegada extends Evento {
 
     public static Evento GenerarTipoCompra(Cliente c, double tiempoEjec, Gestor g) {
         randomTipoCom = Math.random();
-        if (randomTipoCom < 0.8) {
+        if (randomTipoCom < 0.2) {
             return new FinAtGol(g, c, tiempoEjec);
         } else {
             return new FinTrans(g, c, tiempoEjec);

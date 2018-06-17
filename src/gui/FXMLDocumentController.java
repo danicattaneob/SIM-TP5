@@ -108,17 +108,32 @@ public class FXMLDocumentController implements Initializable {
     private TextField txt_cantSim;
     
     @FXML
+    private Label lbl_porcTiempOcAy;
+
+    @FXML
+    private Label lbl_porcTiempCocJef;
+
+    @FXML
+    private Label lbl_porcTiempMostrJefe;
+    
+    @FXML
     private void iniciarSim(ActionEvent event) {
+        //tvw_simulacion.getColumns().clear();
+        tvw_simulacion.getItems().clear();
         System.out.println("You clicked me!");
         Gestor g = new Gestor();
         ObservableList<Columna> lista = g.simular(getCantSim(), getDesde(), getHasta());
         tvw_simulacion.setItems(lista);
+        
+        lbl_porcTiempCocJef.setText(Double.toString(g.porcTiempCocJef()) + " %");
+        lbl_porcTiempOcAy.setText(Double.toString(g.porcTiempOcAy()) + " %");
+        lbl_porcTiempMostrJefe.setText(Double.toString(g.porcTiempMostJef()) + " %");
+        
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
+        setearColumnas();
     }
     
     private void setearColumnas(){

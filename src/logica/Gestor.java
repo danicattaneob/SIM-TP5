@@ -37,7 +37,7 @@ public class Gestor {
         init();
         Columna primeraCol = armarPrimeraColumna(colaEventos.first().getTiempoEjec());
         lista.add(primeraCol);
-        
+
         int i = 0;
         while (hayEventos() && i < cantSim) {
             Evento e = proximoEvento();
@@ -46,12 +46,12 @@ public class Gestor {
             acumulador.acumular(e.getTiempoEjec(), this);
 
             Columna col = armarColumna(e);
-            if (i > desde && i < hasta) {
+            if (i >= desde && i < hasta) {
                 lista.add(col);
             }
 
             i++;
-            debug(e);
+            //debug(e);
         }
         return lista;
     }
@@ -158,7 +158,19 @@ public class Gestor {
     private boolean hayEventos() {
         return !(colaEventos.isEmpty() && colaEvDeFinPed.isEmpty());
     }
+    
+    public double porcTiempOcAy(){
+        return (acumulador.getTiempoAyudanteLibre() / tiempo.getTime()) * 100;
+    }
 
+    public double porcTiempCocJef(){
+        return (acumulador.getTiempoJefeCocina()/ tiempo.getTime()) * 100;
+    }
+    
+    public double porcTiempMostJef(){
+        return (acumulador.getTiempoJefeMostrador()/ tiempo.getTime()) * 100;
+    }
+    
     public Columna armarColumna(Evento e) {
         Columna nuevaCol = new Columna();
         nuevaCol.setReloj(Double.toString(tiempo.getTime()));
@@ -172,13 +184,29 @@ public class Gestor {
 
         //Valores acarreados
         nuevaCol.setProxLleg(columnaAnterior.getProxLleg());
-        nuevaCol.setFinAt(columnaAnterior.getFinAt());
-        nuevaCol.setFinTansm(columnaAnterior.getFinTansm());
-        nuevaCol.setFinPrepC(columnaAnterior.getFinPrepC());
+        if (columnaAnterior.getFinAt().equals(Double.toString(tiempo.getTime()))) {
+            nuevaCol.setFinAt("");
+        }else{
+            nuevaCol.setFinAt(columnaAnterior.getFinAt());
+        }
+        
+        if (columnaAnterior.getFinTansm().equals(Double.toString(tiempo.getTime()))) {
+            nuevaCol.setFinTansm("");
+        }else{
+            nuevaCol.setFinTansm(columnaAnterior.getFinTansm());
+        }
+        
+        if (!colaEvDeFinPed.isEmpty()) {
+            nuevaCol.setFinPrepC(Double.toString(colaEvDeFinPed.first().getTiempoEjec()));
+            //nuevaCol.setFinTansm(Double.toString(colaEvDeFinPed.first().getTiempoEjec()));
+        } else {
+            nuevaCol.setFinPrepC("");
+        }
+        //nuevaCol.setFinPrepC(columnaAnterior.getFinPrepC());
 
         if (e instanceof Llegada) {
             nuevaCol.setRndLleg(Double.toString(((Llegada) e).getRandomTiempLleg()));
-            nuevaCol.setTiemEnLleg(Double.toString(tiempo.getTime() - ((Llegada) e).getProxLleg()));
+            nuevaCol.setTiemEnLleg(Double.toString(-(tiempo.getTime() - ((Llegada) e).getProxLleg())));
             nuevaCol.setProxLleg(Double.toString(((Llegada) e).getProxLleg()));
             nuevaCol.setRndTipC(Double.toString(((Llegada) e).getRandomTipoCom()));
             nuevaCol.setTipoCom(((Llegada) e).getTipoComida());
@@ -208,6 +236,8 @@ public class Gestor {
         nuevaCol.setEstAy(ayudante.getEstado().toString());
         nuevaCol.setAcTiemTrab(Double.toString(acumulador.getTiempoAyudanteTrabajando()));
         nuevaCol.setAcTiemLibre(Double.toString(acumulador.getTiempoAyudanteLibre()));
+
+        columnaAnterior = nuevaCol;
 
         return nuevaCol;
     }
