@@ -5,9 +5,7 @@
  */
 package logica.eventos;
 
-import java.util.LinkedList;
 import logica.entidades.*;
-import logica.estados.*;
 import logica.*;
 
 /**
@@ -47,8 +45,8 @@ public class FinAtGol extends Evento {
     }
 
     public double randomTiempoAt(double tiempoActual) {
-        rndFinAt = Math.random();
-        tiempAt = rndFinAt * (max - min) + min;
+        rndFinAt = redondear(Math.random(), DECIMALES);
+        tiempAt = redondear(rndFinAt * (max - min) + min, DECIMALES);
         return tiempoActual + tiempAt;
     }
 

@@ -5,11 +5,8 @@
  */
 package logica.eventos;
 
-import java.util.LinkedList;
 import logica.entidades.*;
-import logica.estados.*;
 import logica.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -25,7 +22,7 @@ public class FinTrans extends Evento {
     public FinTrans(Gestor g, Cliente cliente, double tiempoFin) {
         this.g = g;
         this.cliente = cliente;
-        this.tiempoEjec = tiempoTansm + tiempoFin;
+        this.tiempoEjec = redondear(tiempoTansm + tiempoFin, DECIMALES);
 
     }
 

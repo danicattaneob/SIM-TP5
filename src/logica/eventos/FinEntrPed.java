@@ -5,7 +5,6 @@
  */
 package logica.eventos;
 
-import java.util.LinkedList;
 import logica.Gestor;
 import logica.entidades.Cliente;
 
@@ -36,9 +35,9 @@ public class FinEntrPed extends Evento {
     }
 
     public double randomTiempoAt(double tiempoActual) {
-        rndTiempPrep = Math.random();
-        tiempoPrep = rndTiempPrep * (max - min) + min;
-        return tiempoActual + tiempoPrep;
+        rndTiempPrep = redondear(Math.random(), DECIMALES);
+        tiempoPrep = redondear(rndTiempPrep * (max - min) + min, DECIMALES);
+        return redondear(tiempoActual + tiempoPrep,DECIMALES);
     }
     
     @Override

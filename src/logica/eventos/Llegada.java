@@ -15,6 +15,7 @@ import logica.*;
 public class Llegada extends Evento {
 
     private static final double MEDIA = 5;
+    private static final double PORCENTAJEGOLOSINA = 0.8;
     private Cliente cliente;
     private final Gestor g;
     private double proxLleg;
@@ -32,13 +33,13 @@ public class Llegada extends Evento {
     }
 
     public double randomProxLleg(double tiempoActual) {
-        randomTiempLleg = Math.random();
-        return tiempoActual + (-MEDIA) * Math.log(1 - randomTiempLleg);
+        randomTiempLleg = redondear(Math.random(), DECIMALES);
+        return redondear(tiempoActual + (-MEDIA) * Math.log(1 - randomTiempLleg), DECIMALES);
     }
 
     public static Evento GenerarTipoCompra(Cliente c, double tiempoEjec, Gestor g) {
-        randomTipoCom = Math.random();
-        if (randomTipoCom < 0.2) {
+        randomTipoCom = redondear(Math.random(), DECIMALES);
+        if (randomTipoCom < PORCENTAJEGOLOSINA) {
             return new FinAtGol(g, c, tiempoEjec);
         } else {
             return new FinTrans(g, c, tiempoEjec);
@@ -84,7 +85,7 @@ public class Llegada extends Evento {
     }
 
     public String getTipoComida() {
-        if (randomTipoCom < 0.8) {
+        if (randomTipoCom < PORCENTAJEGOLOSINA) {
             return "Golos";
         } else {
             return "Com. rap";

@@ -5,7 +5,6 @@
  */
 package logica.eventos;
 
-import java.util.LinkedList;
 
 /**
  *
@@ -14,6 +13,7 @@ import java.util.LinkedList;
 public abstract class Evento implements Comparable<Evento> {
 
     protected double tiempoEjec;
+    public static final int DECIMALES = 4;
 
     public double getTiempoEjec() {
         return tiempoEjec;
@@ -21,7 +21,14 @@ public abstract class Evento implements Comparable<Evento> {
 
     public abstract void ejecutar();
     
-
+    protected static double redondear (double numero, int decimales){
+        int factorRed = (int)Math.pow(10, (double) decimales);
+        int i = (int)(numero * factorRed);
+        double res = ((double)i) / ((double)factorRed);
+        return res;
+    }
+    
+    
     @Override
     public int compareTo(Evento e) {
         return (int) ((this.getTiempoEjec() - e.getTiempoEjec()) * 1000);

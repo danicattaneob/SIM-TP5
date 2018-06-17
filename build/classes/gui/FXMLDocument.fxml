@@ -13,9 +13,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FXMLDocumentController">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="1300.0">
+      <BorderPane>
          <center>
-            <TableView fx:id="tvw_simulacion" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tvw_simulacion" prefHeight="479.0" prefWidth="1354.0" BorderPane.alignment="CENTER">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
@@ -46,7 +46,7 @@
             </TableView>
          </center>
          <top>
-            <GridPane prefHeight="151.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <GridPane prefHeight="120.0" prefWidth="600.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -58,7 +58,6 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -66,12 +65,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="txt_hasta" text="99" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-                  <TextField fx:id="txt_desde" text="0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-                  <Label text="Desde:" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                  <Label text="Hasta" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-                  <TextField fx:id="txt_cantSim" text="100" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <Label text="Cantidad de simulaciones:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="txt_hasta" text="99" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                  <TextField fx:id="txt_desde" text="0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                  <Label text="Desde:" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <Label text="Hasta" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                  <TextField fx:id="txt_cantSim" text="100" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label text="Cantidad de simulaciones:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </top>
@@ -87,8 +86,8 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="160.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

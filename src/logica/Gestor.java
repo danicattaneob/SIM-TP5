@@ -160,15 +160,15 @@ public class Gestor {
     }
     
     public double porcTiempOcAy(){
-        return (acumulador.getTiempoAyudanteLibre() / tiempo.getTime()) * 100;
+        return redondear((acumulador.getTiempoAyudanteLibre() / tiempo.getTime()) * 100, Evento.DECIMALES);
     }
 
     public double porcTiempCocJef(){
-        return (acumulador.getTiempoJefeCocina()/ tiempo.getTime()) * 100;
+        return redondear((acumulador.getTiempoJefeCocina()/ tiempo.getTime()) * 100, Evento.DECIMALES);
     }
     
     public double porcTiempMostJef(){
-        return (acumulador.getTiempoJefeMostrador()/ tiempo.getTime()) * 100;
+        return redondear((acumulador.getTiempoJefeMostrador()/ tiempo.getTime()) * 100, Evento.DECIMALES);
     }
     
     public Columna armarColumna(Evento e) {
@@ -271,5 +271,13 @@ public class Gestor {
         columnaAnterior = nuevaCol;
         return nuevaCol;
     }
+    
+    private static double redondear (double numero, int decimales){
+        int factorRed = (int)Math.pow(10, (double) decimales);
+        int i = (int)(numero * factorRed);
+        double res = ((double)i) / factorRed;
+        return res;
+    }
+    
 
 }
