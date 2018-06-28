@@ -30,12 +30,20 @@ public class Jefe {
         estado = estado.LIBRE;
     }
     
+    public void purgar(){
+        estado = estado.PURGANDO;
+    }
+    
     public boolean estaAtendiendo(){
         return estado.equals(EstadoJefe.ATENDIENDO);
     }
     
     public boolean estaEnCocina(){
         return estado.equals(EstadoJefe.EN_COCINA);
+    }
+    
+    public boolean estaPurgando(){
+        return estado.equals(EstadoJefe.PURGANDO);
     }
 
     public EstadoJefe getEstado() {

@@ -29,7 +29,7 @@ public class Llegada extends Evento {
         this.g = g;
         tiempoEjec = randomProxLleg(tiempoAct);
         randomTipoCom = 0;
-        atendido= false;
+        atendido = false;
     }
 
     public double randomProxLleg(double tiempoActual) {
@@ -95,8 +95,8 @@ public class Llegada extends Evento {
     public double getRandomTiempLleg() {
         return randomTiempLleg;
     }
-    
-    public boolean fueAtendido(){
+
+    public boolean fueAtendido() {
         return atendido;
     }
 
@@ -104,5 +104,4 @@ public class Llegada extends Evento {
         return proxEvento;
     }
 
-    
 }

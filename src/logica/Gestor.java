@@ -27,6 +27,7 @@ public class Gestor {
     private TreeSet<FinEntrPed> colaEvDeFinPed;
     private Acumulador acumulador;
     private Columna columnaAnterior;
+    private double porcentajeOcupDisco;
 
     public Gestor() {
     }
@@ -51,7 +52,7 @@ public class Gestor {
             }
 
             i++;
-            //debug(e);
+            debug(e);
         }
         return lista;
     }
@@ -76,6 +77,7 @@ public class Gestor {
         colaEventos = new TreeSet();
         colaEvDeFinPed = new TreeSet();
         agregarEvento(new Llegada(this, 0));
+        porcentajeOcupDisco = 0;
     }
 
     private Evento proximoEvento() {
@@ -278,6 +280,14 @@ public class Gestor {
         double res = ((double)i) / factorRed;
         return res;
     }
-    
 
+    public double getPorcentajeOcupDisco() {
+        return porcentajeOcupDisco;
+    }
+
+    public void setPorcentajeOcupDisco(double porcentajeOcupDisco) {
+        this.porcentajeOcupDisco = porcentajeOcupDisco;
+    }
+    
+    
 }

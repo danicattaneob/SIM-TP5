@@ -12,7 +12,8 @@ package logica.estados;
 public enum EstadoJefe {
     ATENDIENDO("Atendiendo"),
     LIBRE("Libre"),
-    EN_COCINA("En Cocina");
+    EN_COCINA("En Cocina"),
+    PURGANDO("Purgando log");
 
     private final String nombre;
 

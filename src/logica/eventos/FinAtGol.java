@@ -29,6 +29,13 @@ public class FinAtGol extends Evento {
 
     @Override
     public void ejecutar() {
+        double porcOcupDiscoActual = g.getPorcentajeOcupDisco();
+        double porcOcupDiscoNuevo = calcularRK(porcOcupDiscoActual, H, ALFA, tiempoEjec);
+        g.setPorcentajeOcupDisco(porcOcupDiscoNuevo);
+        
+        //Validar inestabilidad
+        
+        
         if (g.getCola().estaVacia()) {
             if (g.hayPedidos()) {
                 g.getJefe().irACocina();
