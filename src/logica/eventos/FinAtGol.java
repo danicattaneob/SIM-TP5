@@ -29,9 +29,9 @@ public class FinAtGol extends Evento {
 
     @Override
     public void ejecutar() {
-        double porcOcupDiscoActual = g.getPorcentajeOcupDisco();
-        double porcOcupDiscoNuevo = calcularRK(porcOcupDiscoActual, H, ALFA, tiempoEjec);
-        g.setPorcentajeOcupDisco(porcOcupDiscoNuevo);
+//        double porcOcupDiscoActual = g.getPorcentajeOcupDisco();
+//        double porcOcupDiscoNuevo = calcularRK(porcOcupDiscoActual, H, ALFA, tiempoEjec);
+//        g.setPorcentajeOcupDisco(porcOcupDiscoNuevo);
         
         //Validar inestabilidad
         
@@ -47,6 +47,9 @@ public class FinAtGol extends Evento {
             Cliente c = g.getCola().avanzar();
             c.atender();
             Evento e = Llegada.GenerarTipoCompra(c, tiempoEjec, g);
+            if(g.getProxPurg().getTiempoEjec() < e.getTiempoEjec()){
+                e.retrasarEjecucion(FinPurgado.getTiempoPurgado());
+            }
             g.agregarEvento(e);
         }
     }
@@ -59,7 +62,7 @@ public class FinAtGol extends Evento {
 
     @Override
     public String toString() {
-        return "FinAtGol " + tiempoEjec;
+        return "FinAtGol";
     }
 
     public double getRndFinAt() {

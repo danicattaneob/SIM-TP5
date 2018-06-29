@@ -24,8 +24,8 @@ import logica.Gestor;
  * @author Dani
  */
 public class FXMLDocumentController implements Initializable {
-    
-        @FXML
+
+    @FXML
     private TableView<Columna> tvw_simulacion;
 
     @FXML
@@ -94,6 +94,23 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableColumn<Columna, String> acTiemLibre;
 
+    @FXML
+    private TableColumn<Columna, String> rndPorcFall;
+
+    @FXML
+    private TableColumn<Columna, String> porcFall;
+
+    @FXML
+    private TableColumn<Columna, String> tiempEntrePurg;
+
+    @FXML
+    private TableColumn<Columna, String> tiempProxPurg;
+
+    @FXML
+    private TableColumn<Columna, String> tiempPurga;
+
+    @FXML
+    private TableColumn<Columna, String> tiempFinPurg;
 
     @FXML
     private TextField txt_hasta;
@@ -103,10 +120,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private Button btn_simular;
-    
+
     @FXML
     private TextField txt_cantSim;
-    
+
     @FXML
     private Label lbl_porcTiempOcAy;
 
@@ -115,7 +132,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private Label lbl_porcTiempMostrJefe;
-    
+
     @FXML
     private void iniciarSim(ActionEvent event) {
         //tvw_simulacion.getColumns().clear();
@@ -124,52 +141,60 @@ public class FXMLDocumentController implements Initializable {
         Gestor g = new Gestor();
         ObservableList<Columna> lista = g.simular(getCantSim(), getDesde(), getHasta());
         tvw_simulacion.setItems(lista);
-        
+
         lbl_porcTiempCocJef.setText(Double.toString(g.porcTiempCocJef()) + " %");
         lbl_porcTiempOcAy.setText(Double.toString(g.porcTiempOcAy()) + " %");
         lbl_porcTiempMostrJefe.setText(Double.toString(g.porcTiempMostJef()) + " %");
-        
+
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setearColumnas();
     }
-    
-    private void setearColumnas(){
-    reloj.setCellValueFactory( new PropertyValueFactory<>("reloj"));
-    evento.setCellValueFactory( new PropertyValueFactory<>("evento"));
-    rndLleg.setCellValueFactory( new PropertyValueFactory<>("rndLleg"));
-    tiemEnLleg.setCellValueFactory( new PropertyValueFactory<>("tiemEnLleg"));
-    proxLleg.setCellValueFactory( new PropertyValueFactory<>("proxLleg"));
-    rndTipC.setCellValueFactory( new PropertyValueFactory<>("rndTipC"));
-    tipoCom.setCellValueFactory( new PropertyValueFactory<>("tipoCom"));
-    rndFinAtG.setCellValueFactory( new PropertyValueFactory<>("rndFinAtG"));
-    tiemAt.setCellValueFactory( new PropertyValueFactory<>("tiemAt"));
-    finAt.setCellValueFactory( new PropertyValueFactory<>("finAt"));
-    transmP.setCellValueFactory( new PropertyValueFactory<>("transmP"));
-    finTansm.setCellValueFactory( new PropertyValueFactory<>("finTansm"));
-    rndPrepC.setCellValueFactory( new PropertyValueFactory<>("rndPrepC"));
-    tiempPrepC.setCellValueFactory( new PropertyValueFactory<>("tiempPrepC"));
-    finPrepC.setCellValueFactory( new PropertyValueFactory<>("finPrepC"));
-    estJefe.setCellValueFactory( new PropertyValueFactory<>("estJefe"));
-    estCola.setCellValueFactory( new PropertyValueFactory<>("estCola"));
-    acTiemMost.setCellValueFactory( new PropertyValueFactory<>("acTiemMost"));
-    acTiemCoc.setCellValueFactory( new PropertyValueFactory<>("acTiemCoc"));
-    estAy.setCellValueFactory( new PropertyValueFactory<>("estAy"));
-    acTiemTrab.setCellValueFactory( new PropertyValueFactory<>("acTiemTrab"));
-    acTiemLibre.setCellValueFactory( new PropertyValueFactory<>("acTiemLibre"));
+
+    private void setearColumnas() {
+        reloj.setCellValueFactory(new PropertyValueFactory<>("reloj"));
+        evento.setCellValueFactory(new PropertyValueFactory<>("evento"));
+        rndLleg.setCellValueFactory(new PropertyValueFactory<>("rndLleg"));
+        tiemEnLleg.setCellValueFactory(new PropertyValueFactory<>("tiemEnLleg"));
+        proxLleg.setCellValueFactory(new PropertyValueFactory<>("proxLleg"));
+        rndTipC.setCellValueFactory(new PropertyValueFactory<>("rndTipC"));
+        tipoCom.setCellValueFactory(new PropertyValueFactory<>("tipoCom"));
+        rndFinAtG.setCellValueFactory(new PropertyValueFactory<>("rndFinAtG"));
+        tiemAt.setCellValueFactory(new PropertyValueFactory<>("tiemAt"));
+        finAt.setCellValueFactory(new PropertyValueFactory<>("finAt"));
+        transmP.setCellValueFactory(new PropertyValueFactory<>("transmP"));
+        finTansm.setCellValueFactory(new PropertyValueFactory<>("finTansm"));
+
+        rndPorcFall.setCellValueFactory(new PropertyValueFactory<>("rndPorcFall"));
+        porcFall.setCellValueFactory(new PropertyValueFactory<>("porcFall"));
+        tiempEntrePurg.setCellValueFactory(new PropertyValueFactory<>("tiempEntrePurg"));
+        tiempProxPurg.setCellValueFactory(new PropertyValueFactory<>("tiempProxPurg"));
+        tiempPurga.setCellValueFactory(new PropertyValueFactory<>("tiempPurga"));
+        tiempFinPurg.setCellValueFactory(new PropertyValueFactory<>("tiempFinPurg"));
+
+        rndPrepC.setCellValueFactory(new PropertyValueFactory<>("rndPrepC"));
+        tiempPrepC.setCellValueFactory(new PropertyValueFactory<>("tiempPrepC"));
+        finPrepC.setCellValueFactory(new PropertyValueFactory<>("finPrepC"));
+        estJefe.setCellValueFactory(new PropertyValueFactory<>("estJefe"));
+        estCola.setCellValueFactory(new PropertyValueFactory<>("estCola"));
+        acTiemMost.setCellValueFactory(new PropertyValueFactory<>("acTiemMost"));
+        acTiemCoc.setCellValueFactory(new PropertyValueFactory<>("acTiemCoc"));
+        estAy.setCellValueFactory(new PropertyValueFactory<>("estAy"));
+        acTiemTrab.setCellValueFactory(new PropertyValueFactory<>("acTiemTrab"));
+        acTiemLibre.setCellValueFactory(new PropertyValueFactory<>("acTiemLibre"));
     }
 
-    public int getCantSim(){
+    public int getCantSim() {
         return Integer.parseInt(txt_cantSim.getText());
     }
-    
-    public int getDesde(){
+
+    public int getDesde() {
         return Integer.parseInt(txt_desde.getText());
     }
-    
-    public int getHasta(){
+
+    public int getHasta() {
         return Integer.parseInt(txt_hasta.getText());
     }
 }

@@ -27,7 +27,8 @@ public class Gestor {
     private TreeSet<FinEntrPed> colaEvDeFinPed;
     private Acumulador acumulador;
     private Columna columnaAnterior;
-    private double porcentajeOcupDisco;
+    private double tiempoUltimoPurgado;
+    private Purgado proxPurg;
 
     public Gestor() {
     }
@@ -61,8 +62,8 @@ public class Gestor {
         System.out.print(e.toString());
         System.out.print("\t Cola: " + cola.genteEnCola());
         System.out.print("\t Jefe: " + jefe.getEstado().toString());
-        //System.out.print("\t\t Ayudante: " + ayudante.getEstado().toString());
-        System.out.println("\t\t\t Ac tiempo Jefe en cocina: " + acumulador.getTiempoJefeCocina());
+        System.out.println("\t\t Ayudante: " + ayudante.getEstado().toString());
+        //System.out.println("\t\t\t Ac tiempo Jefe en cocina: " + acumulador.getTiempoJefeCocina());
         //System.out.println("\t Ac tiempo Ayudante tabajando: " + acumulador.getTiempoAyudanteTrabajando());
     }
 
@@ -77,7 +78,9 @@ public class Gestor {
         colaEventos = new TreeSet();
         colaEvDeFinPed = new TreeSet();
         agregarEvento(new Llegada(this, 0));
-        porcentajeOcupDisco = 0;
+        proxPurg = new Purgado(this);
+        colaEventos.add(proxPurg);
+        tiempoUltimoPurgado = 0;
     }
 
     private Evento proximoEvento() {
@@ -160,19 +163,19 @@ public class Gestor {
     private boolean hayEventos() {
         return !(colaEventos.isEmpty() && colaEvDeFinPed.isEmpty());
     }
-    
-    public double porcTiempOcAy(){
+
+    public double porcTiempOcAy() {
         return redondear((acumulador.getTiempoAyudanteLibre() / tiempo.getTime()) * 100, Evento.DECIMALES);
     }
 
-    public double porcTiempCocJef(){
-        return redondear((acumulador.getTiempoJefeCocina()/ tiempo.getTime()) * 100, Evento.DECIMALES);
+    public double porcTiempCocJef() {
+        return redondear((acumulador.getTiempoJefeCocina() / tiempo.getTime()) * 100, Evento.DECIMALES);
     }
-    
-    public double porcTiempMostJef(){
-        return redondear((acumulador.getTiempoJefeMostrador()/ tiempo.getTime()) * 100, Evento.DECIMALES);
+
+    public double porcTiempMostJef() {
+        return redondear((acumulador.getTiempoJefeMostrador() / tiempo.getTime()) * 100, Evento.DECIMALES);
     }
-    
+
     public Columna armarColumna(Evento e) {
         Columna nuevaCol = new Columna();
         nuevaCol.setReloj(Double.toString(tiempo.getTime()));
@@ -185,19 +188,26 @@ public class Gestor {
         nuevaCol.setTipoCom("");
 
         //Valores acarreados
+        nuevaCol.setRndPorcFall("");
+        nuevaCol.setPorcFall("");
+        nuevaCol.setTiempEntrePurg("");
+        nuevaCol.setTiempProxPurg(columnaAnterior.getTiempProxPurg());
+        nuevaCol.setTiempPurga("");
+        nuevaCol.setTiempFinPurg(columnaAnterior.getTiempFinPurg());
+
         nuevaCol.setProxLleg(columnaAnterior.getProxLleg());
         if (columnaAnterior.getFinAt().equals(Double.toString(tiempo.getTime()))) {
             nuevaCol.setFinAt("");
-        }else{
+        } else {
             nuevaCol.setFinAt(columnaAnterior.getFinAt());
         }
-        
+
         if (columnaAnterior.getFinTansm().equals(Double.toString(tiempo.getTime()))) {
             nuevaCol.setFinTansm("");
-        }else{
+        } else {
             nuevaCol.setFinTansm(columnaAnterior.getFinTansm());
         }
-        
+
         if (!colaEvDeFinPed.isEmpty()) {
             nuevaCol.setFinPrepC(Double.toString(colaEvDeFinPed.first().getTiempoEjec()));
             //nuevaCol.setFinTansm(Double.toString(colaEvDeFinPed.first().getTiempoEjec()));
@@ -231,6 +241,22 @@ public class Gestor {
 
         }
 
+        if (e instanceof Purgado) {
+            nuevaCol.setRndPorcFall("");
+            nuevaCol.setPorcFall("");
+            nuevaCol.setTiempEntrePurg("");
+            nuevaCol.setTiempProxPurg("");
+        }
+
+        if (e instanceof FinPurgado) {
+            nuevaCol.setRndPorcFall(Double.toString(proxPurg.getRandomPorcInest()));
+            nuevaCol.setPorcFall(Double.toString(proxPurg.getPorcInest()));
+            nuevaCol.setTiempEntrePurg(Double.toString(proxPurg.getTiempEntrePurg()));
+            nuevaCol.setTiempProxPurg(Double.toString(proxPurg.getTiempoEjec()));
+            nuevaCol.setTiempPurga(Double.toString(FinPurgado.getTiempoPurgado()));
+            nuevaCol.setTiempFinPurg(Double.toString(proxPurg.getTiempoEjec() + FinPurgado.getTiempoPurgado()));
+        }
+
         nuevaCol.setEstJefe(jefe.getEstado().toString());
         nuevaCol.setEstCola(Integer.toString(cola.genteEnCola()));
         nuevaCol.setAcTiemMost(Double.toString(acumulador.getTiempoJefeMostrador()));
@@ -259,6 +285,16 @@ public class Gestor {
         nuevaCol.setFinAt("");
         nuevaCol.setTransmP("");
         nuevaCol.setFinTansm("");
+
+        //Hay un error magico
+        nuevaCol.setRndPorcFall(Double.toString(proxPurg.getRandomPorcInest()));
+        nuevaCol.setPorcFall(Double.toString(proxPurg.getPorcInest()));
+        nuevaCol.setTiempEntrePurg(Double.toString(proxPurg.getTiempEntrePurg()));
+        //nuevaCol.settEntrePurg("Hola");
+        nuevaCol.setTiempProxPurg(Double.toString(proxPurg.getTiempoEjec()));
+        nuevaCol.setTiempPurga(Double.toString(FinPurgado.getTiempoPurgado()));
+        nuevaCol.setTiempFinPurg(Double.toString(proxPurg.getTiempoEjec() + FinPurgado.getTiempoPurgado()));
+
         nuevaCol.setRndPrepC("");
         nuevaCol.setTiempPrepC("");
         nuevaCol.setFinPrepC("");
@@ -273,21 +309,28 @@ public class Gestor {
         columnaAnterior = nuevaCol;
         return nuevaCol;
     }
-    
-    private static double redondear (double numero, int decimales){
-        int factorRed = (int)Math.pow(10, (double) decimales);
-        int i = (int)(numero * factorRed);
-        double res = ((double)i) / factorRed;
+
+    private static double redondear(double numero, int decimales) {
+        int factorRed = (int) Math.pow(10, (double) decimales);
+        int i = (int) (numero * factorRed);
+        double res = ((double) i) / factorRed;
         return res;
     }
 
-    public double getPorcentajeOcupDisco() {
-        return porcentajeOcupDisco;
+    public double getTiempoUltimoPurgado() {
+        return tiempoUltimoPurgado;
     }
 
-    public void setPorcentajeOcupDisco(double porcentajeOcupDisco) {
-        this.porcentajeOcupDisco = porcentajeOcupDisco;
+    public void setTiempoUltimoPurgado(double tiempoUltimoPurgado) {
+        this.tiempoUltimoPurgado = tiempoUltimoPurgado;
     }
-    
-    
+
+    public void setProxPurg(Purgado proxPurg) {
+        this.proxPurg = proxPurg;
+    }
+
+    public Purgado getProxPurg() {
+        return proxPurg;
+    }
+
 }

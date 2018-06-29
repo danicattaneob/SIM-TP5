@@ -5,7 +5,6 @@
  */
 package gui;
 
-import logica.Gestor;
 
 /**
  *
@@ -56,6 +55,20 @@ public class Columna {
     private String acTiemTrab;
 
     private String acTiemLibre;
+    
+    private String rndPorcFall;
+
+    private String porcFall;
+
+    private String tiempEntrePurg;
+
+    private String tiempProxPurg;
+
+    private String tiempPurga;
+
+    private String tiempFinPurg;
+
+
 
     public Columna() {
         
@@ -237,6 +250,54 @@ public class Columna {
 
     public void setAcTiemLibre(String acTiemLibre) {
         this.acTiemLibre = acTiemLibre;
+    }
+
+    public String getRndPorcFall() {
+        return rndPorcFall;
+    }
+
+    public void setRndPorcFall(String rndPorcFall) {
+        this.rndPorcFall = rndPorcFall;
+    }
+
+    public String getPorcFall() {
+        return porcFall;
+    }
+
+    public void setPorcFall(String porcFall) {
+        this.porcFall = porcFall;
+    }
+
+    public String getTiempEntrePurg() {
+        return tiempEntrePurg;
+    }
+
+    public void setTiempEntrePurg(String tEntrePurg) {
+        this.tiempEntrePurg = tEntrePurg;
+    }
+
+    public String getTiempProxPurg() {
+        return tiempProxPurg;
+    }
+
+    public void setTiempProxPurg(String TProxPurg) {
+        this.tiempProxPurg = TProxPurg;
+    }
+
+    public String getTiempPurga() {
+        return tiempPurga;
+    }
+
+    public void setTiempPurga(String tPurga) {
+        this.tiempPurga = tPurga;
+    }
+
+    public String getTiempFinPurg() {
+        return tiempFinPurg;
+    }
+
+    public void setTiempFinPurg(String tFinPurg) {
+        this.tiempFinPurg = tFinPurg;
     }
     
     

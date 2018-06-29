@@ -42,18 +42,34 @@ public class FinEntrPed extends Evento {
     
     @Override
     public void ejecutar() {
-        
-        if (!g.hayPedidos()) {
-            g.getAyudante().liberar();
-            if (g.getJefe().estaEnCocina()) {
+        if (g.getCola().estaVacia()) {
+            if (g.hayPedidos()) {
+                g.getJefe().irACocina();
+                g.dividirTiempoPed(tiempoEjec);
+            } else {
                 g.getJefe().liberar();
             }
+        } else {
+            Cliente c = g.getCola().avanzar();
+            c.atender();
+            Evento e = Llegada.GenerarTipoCompra(c, tiempoEjec, g);
+            if(g.getProxPurg().getTiempoEjec() < e.getTiempoEjec()){
+                e.retrasarEjecucion(FinPurgado.getTiempoPurgado());
+            }
+            g.agregarEvento(e);
         }
+//        
+//        if (!g.hayPedidos()) {
+//            g.getAyudante().liberar();
+//            if (g.getJefe().estaEnCocina()) {
+//                g.getJefe().liberar();
+//            }
+//        }
     }
 
     @Override
     public String toString() {
-        return "FinEntrPed " + tiempoEjec;
+        return "FinEntrPed ";
     }
 
     public double getRndTiempPrep() {

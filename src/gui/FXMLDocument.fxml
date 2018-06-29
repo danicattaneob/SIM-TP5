@@ -32,6 +32,12 @@
                   <TableColumn fx:id="finAt" maxWidth="2000.0" prefWidth="57.0" text="Fin at." />
                   <TableColumn fx:id="transmP" maxWidth="2500.0" prefWidth="72.0" text="T. trans." />
                   <TableColumn fx:id="finTansm" maxWidth="2750.0" prefWidth="76.0" text="Fin trans." />
+                  <TableColumn fx:id="rndPorcFall" prefWidth="39.0" text="RND" />
+                  <TableColumn fx:id="porcFall" prefWidth="50.0" text="\% Falla" />
+                  <TableColumn fx:id="tiempEntrePurg" prefWidth="82.0" text="T. entre purg" />
+                  <TableColumn fx:id="tiempProxPurg" prefWidth="75.0" text="Prox. purg" />
+                  <TableColumn fx:id="tiempPurga" prefWidth="75.0" text="T. purga" />
+                  <TableColumn fx:id="tiempFinPurg" prefWidth="75.0" text="FinPurg" />
                   <TableColumn fx:id="rndPrepC" maxWidth="1750.0" prefWidth="35.0" text="RND" />
                   <TableColumn fx:id="tiempPrepC" maxWidth="4000.0" prefWidth="93.0" text="T. prep. com." />
                   <TableColumn fx:id="finPrepC" maxWidth="4500.0" prefWidth="92.0" text="Fin prep. com." />

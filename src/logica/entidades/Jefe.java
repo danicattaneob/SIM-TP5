@@ -12,6 +12,7 @@ import logica.estados.*;
  */
 public class Jefe {
     private EstadoJefe estado;
+    private EstadoJefe estadoAntPurga;
 
     public Jefe() {
         this.estado = EstadoJefe.LIBRE;
@@ -31,7 +32,12 @@ public class Jefe {
     }
     
     public void purgar(){
+        estadoAntPurga = estado;
         estado = estado.PURGANDO;
+    }
+    
+    public void finPurga(){
+        estado = estadoAntPurga;
     }
     
     public boolean estaAtendiendo(){

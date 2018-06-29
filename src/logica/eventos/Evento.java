@@ -15,6 +15,7 @@ public abstract class Evento implements Comparable<Evento> {
     public static final int DECIMALES = 4;
     protected static final double H = 0.5;
     protected static final double ALFA = 0.03;
+    protected static final double T = 5;
 
     public double getTiempoEjec() {
         return tiempoEjec;
@@ -43,7 +44,11 @@ public abstract class Evento implements Comparable<Evento> {
             double rk4 = (alfa * (T + (h * rk3)));
             T = T + (h / 6) * (rk1 + 2 * rk2 + 2 * rk3 + rk4);
             t += h;
-        } while (t < corte);
-        return T;
+        } while (T < corte);
+        return t;
+    }
+    
+    public void retrasarEjecucion(double tiempoRetraso){
+        tiempoEjec += tiempoRetraso;
     }
 }

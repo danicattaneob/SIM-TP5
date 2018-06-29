@@ -47,7 +47,7 @@ public class FinTrans extends Evento {
 
     @Override
     public String toString() {
-        return "FinTrans " + tiempoEjec;
+        return "FinTrans ";
     }
 
     public double getTiempoTansm() {
@@ -66,4 +66,5 @@ public class FinTrans extends Evento {
         return finEntrPed.getTiempoEjec();
     }
 
+    
 }

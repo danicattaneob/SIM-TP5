@@ -53,7 +53,7 @@ public class Llegada extends Evento {
         proxLleg = evProxLleg.getTiempoEjec();
 
         cliente = new Cliente();
-        if (g.getJefe().estaAtendiendo()) {
+        if (g.getJefe().estaAtendiendo() || g.getJefe().estaPurgando()) {
             g.getCola().agregar(cliente);
             atendido = false;
         } else {
@@ -64,6 +64,9 @@ public class Llegada extends Evento {
             g.getJefe().atender();
             cliente.atender();
             proxEvento = GenerarTipoCompra(cliente, tiempoEjec, g);
+            if(g.getProxPurg().getTiempoEjec() < proxEvento.getTiempoEjec()){
+                proxEvento.retrasarEjecucion(FinPurgado.getTiempoPurgado());
+            }
             g.agregarEvento(proxEvento);
         }
 
@@ -73,7 +76,7 @@ public class Llegada extends Evento {
 
     @Override
     public String toString() {
-        return "Llegada " + tiempoEjec;
+        return "Llegada ";
     }
 
     public double getProxLleg() {
@@ -103,5 +106,7 @@ public class Llegada extends Evento {
     public Evento getProxEvento() {
         return proxEvento;
     }
+    
+     
 
 }
